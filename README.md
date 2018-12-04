@@ -1,6 +1,25 @@
-# meituan
+# nuxt 学习项目
 
-> My incredible Nuxt.js project
+> nuxt + koa + mongoDB + redis 
+
+## node中使用es6语法  使用babel处理node
+> 创建 .babellrc 文件对 babel-node 进行处理, 安装 babel-preset-es2015: yarn add babel-cli babel-preset-es2015 --dev  
+```
+{
+  "presets": ["es2015"]
+}
+```
+
+## nuxt中使用scss node-sass sass-loader
+> 安装依赖： yarn add node-sass sass-loader --dev  
+
+
+# nuxt.config.js 配置项选择：
+
+```
+
+```
+
 
 ## Build Setup
 
