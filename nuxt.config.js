@@ -72,6 +72,6 @@ module.exports = {
       }
     },
     // 使用缓存
-    cache: true
+    // cache: true
   }
 }

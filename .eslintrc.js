@@ -20,6 +20,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/max-attributes-per-line': 0,
     'vue/html-self-closing': 0,
-    'vue/order-in-components': 0
+    'vue/order-in-components': 0,
+    'vue/mustache-interpolation-spacing': 0,
+    'vue/attributes-order': 0
   }
 }

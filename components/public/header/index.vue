@@ -1,29 +1,35 @@
 <template>
-  <el-row :gutter="15" class="m-header">
-    <el-col :span="6">
-      <geo />
-    </el-col>
-    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  </el-row>
+  <div class="m-header">
+    <el-row>
+      <el-col>
+        <top-bar />
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        <search-bar></search-bar>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
-import Geo from './geo';
+import TopBar from './topbar';
+import SearchBar from './searchbar';
 
- export default {
-   data () {
-     return {
+export default {
+  data () {
+    return {
 
-     }
-   },
-   components: {
-     Geo
-   }
- }
+    }
+  },
+  components: {
+    TopBar,
+    SearchBar
+  }
+}
 </script>
 
-<style lang='scss' scoped>
-@import '@/assets/css/public/layout.scss';
-
+<style lang='scss'>
+@import "@/assets/css/public/header/index.scss";
 </style>
