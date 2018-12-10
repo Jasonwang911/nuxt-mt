@@ -22,6 +22,7 @@ module.exports = {
     'vue/html-self-closing': 0,
     'vue/order-in-components': 0,
     'vue/mustache-interpolation-spacing': 0,
-    'vue/attributes-order': 0
+    'vue/attributes-order': 0,
+    'vue/name-property-casing': 0
   }
 }
