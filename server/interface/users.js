@@ -63,7 +63,7 @@ router.post('/signup', async (ctx) => {
     email
   })
   if(nuser) {
-    let res = await axios.post('/user/sginin', {
+    let res = await axios.post('/users/signin', {
       username,
       password
     })
@@ -99,9 +99,10 @@ router.post('/signin', async (ctx,next) => {
       if(user) {
         ctx.body = {
           code: 0,
-          msg: '登录成功'
+          msg: '登录成功',
+          user
         }
-        return ctx.login(user)
+        return ctx.login(user);
       }else {
         ctx.body = {
           code: -1,
@@ -121,6 +122,7 @@ router.post('/verify', async (ctx, next) => {
       code: -1,
       msg: '验证请求过于频繁'
     }
+    return false;
   }
   // 邮件发送
   let transporter = nodeMailer.createTransport({
@@ -160,7 +162,7 @@ router.post('/verify', async (ctx, next) => {
 })
 
 // 退出登录
-router.post('/exit',async (ctx, next) => {
+router.get('/exit',async (ctx, next) => {
   await ctx.logout();
   if(!ctx.isAuthenticated()) {
     ctx.body = {
@@ -175,14 +177,17 @@ router.post('/exit',async (ctx, next) => {
 
 // 获取用户名
 router.get('/getUser', async (ctx) => {
-  if(ctx.isUnauthenticated()) {
+  console.log('进入获取用户信息接口',ctx.isAuthenticated());
+  if(ctx.isAuthenticated()) {
     const {username, email} = ctx.session.passport.user;
     ctx.body = {
       code: 0,
+      username,
       email
     }
   }else {
     ctx.body = {
+      code: -1,
       user: '',
       email: ''
     }
