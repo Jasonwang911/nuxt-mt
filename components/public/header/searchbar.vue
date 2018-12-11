@@ -80,6 +80,8 @@
 </template>
 
 <script>
+import _ from "lodash";
+
   export default {
     data () {
       return {
@@ -107,9 +109,17 @@
           _this.isFocus = false;
         }, 300)
       },
-      input() {
-        console.log('input')
-      }
+      input: _.debounce(async function(){
+        let city = this.$store.state.geo.position.city.replace('市', '');
+        this.searchList = [];
+        let {status,data:{top}} = await this.$axios.get('/search/top',{
+          params:{
+            input:this.search,
+            city
+          }
+        })
+        this.searchList = top.slice(0,10)
+      }, 300)
     }
   }
 </script>

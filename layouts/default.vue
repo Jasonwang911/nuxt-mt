@@ -1,26 +1,23 @@
 <template>
   <el-container class="layout-default">
-    <el-header>
-      <my-header />
+    <el-header height="197px">
+      <my-header/>
     </el-header>
     <el-main>
-      <nuxt />
+      <nuxt/>
     </el-main>
-    <el-footer>Footer</el-footer>
+    <el-footer height="100%">
+      <!-- <my-footer/> -->
+    </el-footer>
   </el-container>
 </template>
 
 <script>
-import MyHeader from '@/components/public/header';
+  import MyHeader from '@/components/public/header/index.vue';
 
-export default {
-  components: {
-    MyHeader
+  export default {
+    components:{
+      MyHeader
+    }
   }
-}
 </script>
-
-
-<style>
-@import '@/assets/css/public/layout.scss';
-</style>
