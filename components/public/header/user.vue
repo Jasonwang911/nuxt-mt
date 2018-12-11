@@ -18,8 +18,11 @@
        user: ''
      }
    },
-   components: {
-
+   async mounted() {
+    const {status, data: { user }} = await this.$axios.get('/users/getUser')
+    if(status === 200) {
+      this.user = user;
+    }
    }
  }
 </script>

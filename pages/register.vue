@@ -28,7 +28,7 @@
         <el-form-item label="验证码" prop="code">
           <el-input v-model="ruleForm.code" maxlength="4"></el-input>
         </el-form-item>
-        <el-form-item label="验证码" prop="pwd">
+        <el-form-item label="密码" prop="pwd">
           <el-input type="password" v-model="ruleForm.pwd"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="cpwd">
@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import Crypto from 'crypto-js';
+
 export default {
   name: 'register',
   layout: "blank",
@@ -98,22 +100,72 @@ export default {
   },
   methods: {
     //  发送验证码
-    sendMsg() {},
+    sendMsg() {
+      const self = this;
+      let namePass;
+      let emailPass;
+      if(self.timerid) {
+        return false;
+      }
+      this.$refs['ruleForm'].validateField('name', (valid) => {
+        namePass = valid;
+      })
+      self.statusMsg = '';
+      if(namePass) {
+        return false;
+      }
+      this.$refs['ruleForm'].validateField('email', (valid) => {
+        emailPass = valid;
+      })
+      if(!namePass && !emailPass) {
+        self.$axios.post('/users/verify', {username: encodeURIComponent(self.ruleForm.name), email: self.ruleForm.email})
+        .then(({status, data}) => {
+          if(status === 200 && data && data.code === 0) {
+            let count = 60;
+            self.statusMsg = `验证码已发送，剩余${count--}秒`;
+            self.timerid = setInterval( () => {
+              self.statusMsg = `验证码已发送，剩余${count--}秒`;
+              if(count <= 0) {
+                clearInterval(self.timerid)
+                self.statusMsg = '';
+              }
+            }, 1000)
+          }else {
+            self.statusMsg = data.msg;
+          }
+        })
+      }
+    },
     // 注册
-    register() {},
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+    register() {
+      this.$refs['ruleForm'].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.$axios.post('/users/signup', {
+            username: encodeURIComponent(this.ruleForm.name),
+            password: Crypto.MD5(this.ruleForm.pwd).toString(),
+            email: this.ruleForm.email,
+            code: this.ruleForm.code
+          })
+          .then( ({status, data}) => {
+            if(status === 200) {
+              if(data && data.code === 0) {
+                this.$router.push('/login')
+              }else {
+                this.error = data.msg;
+              }
+            }else {
+              this.error = `服务器出错，错误码${status}`;
+            }
+            setTimeout( () => {
+              this.error = '';
+            }, 1500)
+          })
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
   }
 };
 </script>
