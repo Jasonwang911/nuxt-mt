@@ -20,7 +20,7 @@ import search from './interface/search';
 const app = new Koa()
 app.use(cors())
 const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 
 // 添加公用的配置
 // session

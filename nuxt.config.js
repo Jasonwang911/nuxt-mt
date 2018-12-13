@@ -51,6 +51,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true
   },
 
   /*
@@ -73,5 +74,9 @@ module.exports = {
     },
     // 使用缓存
     // cache: true
+  },
+  server: {
+    port: 4000,
+    host: '0.0.0.0'
   }
 }

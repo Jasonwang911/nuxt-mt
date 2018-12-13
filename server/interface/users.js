@@ -177,19 +177,18 @@ router.get('/exit',async (ctx, next) => {
 
 // 获取用户名
 router.get('/getUser', async (ctx) => {
-  console.log('进入获取用户信息接口',ctx.isAuthenticated());
-  if(ctx.isAuthenticated()) {
-    const {username, email} = ctx.session.passport.user;
-    ctx.body = {
+  if (ctx.isAuthenticated()) {
+    const {username, email} = ctx.session.passport.user
+    ctx.body={
       code: 0,
-      username,
+      user:username,
       email
     }
-  }else {
-    ctx.body = {
+  }else{
+    ctx.body={
       code: -1,
-      user: '',
-      email: ''
+      user:'',
+      email:''
     }
   }
 })

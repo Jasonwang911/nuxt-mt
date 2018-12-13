@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import topBar from './topbar.vue'
-import searchBar from './searchbar.vue'
+import topBar from './topbar.vue';
+import searchBar from './searchbar.vue';
+
 export default {
   components:{
     topBar,

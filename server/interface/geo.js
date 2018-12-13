@@ -10,7 +10,7 @@ let router = new Router({
 // 获取定位
 router.get('/getPosition', (ctx) => {
   // let {status, data: {province, city}} = await axios.get('http://http://cp-tools.cn/')
-  let {status, data: {province, city}} = {status: 200, data: {province: '北京市', city: '北京市'}};
+  let {status, data: {province, city}} = {status: 200, data: {province: '海南省', city: '三亚市'}};
   if(status === 200) {
     ctx.body = {
       code: 0,

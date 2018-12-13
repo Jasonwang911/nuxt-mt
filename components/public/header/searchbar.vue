@@ -25,12 +25,14 @@
             <dd>火锅</dd>
           </dl>
           <!-- 输入后给出的相关推荐 -->
-          <dl class="searchList" v-if="isSearchList">
-            <dd>水煮鱼</dd>
-            <dd>水煮鱼</dd>
-            <dd>水煮鱼</dd>
-            <dd>水煮鱼</dd>
-            <dd>水煮鱼</dd>
+          <dl
+            v-if="isSearchList"
+            class="searchList">
+            <dd
+              v-for="(item,idx) in searchList"
+              :key="idx">
+              <a :href="'/products?keyword='+encodeURIComponent(item.name)">{{ item.name }}</a>
+            </dd>
           </dl>
         </div>
         <p class="suggset">
@@ -114,7 +116,7 @@ import _ from "lodash";
         this.searchList = [];
         let {status,data:{top}} = await this.$axios.get('/search/top',{
           params:{
-            input:this.search,
+            input: this.search,
             city
           }
         })
